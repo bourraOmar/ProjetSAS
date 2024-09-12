@@ -152,7 +152,24 @@ void calculerMoyenneGenerale(){
   }
 }
 
+void rechercherEtudiantParNom(){
+  char rechercheNom[maxLen];
+  int etudiantTrouve = 0;
+  int i;
 
+  printf("Entrer le nom de l'etudiant a rechercher : ");
+  scanf("%s", rechercheNom);
+  for(i = 0; i < count; i++){
+    if(strcmp(nom[i], rechercheNom) == 0){
+      printf("Etudiant trouve : %s %s (Numero : %d, Departement : %s, Note generale : %.2f)\n", nom[i], prenom[i], numeroUnique[i], departement[i], noteGenerale[i]);
+      etudiantTrouve = 1;
+    }
+  }
+  if(etudiantTrouve == 0){
+    printf("Aucun etudiant trouve avec le nom %s.\n", rechercheNom);
+  }
+
+}
 
 void menu()
 {
@@ -196,6 +213,12 @@ void menu()
       system("cls");
       calculerMoyenneGenerale();
       break;
+    case 6:
+      system("cls");
+      rechercherEtudiantParNom();
+      break;
+    default:
+      printf("Option invalide!\n");
     }
   } while (choix != 8);
 }
