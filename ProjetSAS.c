@@ -168,7 +168,45 @@ void rechercherEtudiantParNom(){
   if(etudiantTrouve == 0){
     printf("Aucun etudiant trouve avec le nom %s.\n", rechercheNom);
   }
+}
 
+void trierEtudiantsParNom(){
+  int i, j, minIndex;
+  char tempNom[maxLen], tempPremon[maxLen], tempDateNaissance[dateLen], tempDepartement[maxLen];
+  int tempNumero;
+  float tempNote;
+
+  for(i = 0; i < count - 1; i++){
+    minIndex = i;
+    for (j = i +1; j < count; j++){
+      if (strcmp(nom[j], nom[minIndex]) < 0){
+        minIndex = j;
+      }
+    }
+    strcpy(tempNom, nom[i]);
+    strcpy(nom[i], nom[minIndex]);
+    strcpy(nom[minIndex], tempNom);
+
+    strcpy(tempPremon, prenom[i]);
+    strcpy(prenom[i], prenom[minIndex]);
+    strcpy(prenom[minIndex], tempPremon);
+
+    strcpy(tempDateNaissance, dateNaissance[i]);
+    strcpy(dateNaissance[i], dateNaissance[minIndex]);
+    strcpy(dateNaissance[minIndex], tempDateNaissance);
+
+    strcpy(tempDepartement, departement[i]);
+    strcpy(departement[i], departement[minIndex]);
+    strcpy(departement[minIndex], tempDepartement);
+
+    tempNumero = numeroUnique[i];
+    numeroUnique[i] = numeroUnique[minIndex];
+    numeroUnique[minIndex] = tempNumero;
+
+    tempNote = noteGenerale[i];
+    noteGenerale[i] = noteGenerale[minIndex];
+    noteGenerale[minIndex] = tempNote;
+  }
 }
 
 void menu()
@@ -183,7 +221,7 @@ void menu()
     printf("4 . supprimer un etudient\n");
     printf("5 . Calculer la moyenne generale\n");
     printf("6 . Rechercher un etudiant par nom\n");
-    printf("7 . Afficher les etudiant par departement\n");
+    printf("7 . Trier les etudiants par nom\n");
     printf("8 . Quitter\n");
     printf("Choisissez une option : ");
     scanf("%d", &choix);
@@ -216,6 +254,11 @@ void menu()
     case 6:
       system("cls");
       rechercherEtudiantParNom();
+      break;
+    case 7:
+      system("cls");
+      trierEtudiantsParNom();
+      afficherTousEtudiant();
       break;
     default:
       printf("Option invalide!\n");
